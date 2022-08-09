@@ -1,0 +1,29 @@
+version: '3.4'
+services:
+  web:
+    volumes:
+      - data:/var/lib/odoo
+      - ./extra-addons:/var/lib/extra-addons/
+      - ./odoo.conf:/etc/odoo/odoo.conf
+    image: odoo:15.0
+#    depends_on:
+#      - db
+    ports:
+      - "8073:8069"
+  db:
+    volumes:
+      - db-data:/var/lib/postgresql/data 
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_USER=odoo
+      
+volumes:
+  data:
+    name: proyecto1-data
+    external: true
+  db-data:
+    name: proyecto1-db-data
+    external: true
+
